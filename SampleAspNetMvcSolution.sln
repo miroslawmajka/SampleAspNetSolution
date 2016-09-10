@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAspNetMvcWebProject", "SampleAspNetMvcWebProject\SampleAspNetMvcWebProject.csproj", "{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAspNetMvcWebProjectUnitTests", "SampleAspNetMvcWebProjectUnitTests\SampleAspNetMvcWebProjectUnitTests.csproj", "{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45FF56CA-C251-4181-8051-910330272078}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

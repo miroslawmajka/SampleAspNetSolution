@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Videos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    const string VIDEO_PLACEHOLDER = "Your browser does not support HTML5 video.";
+
+    var dynamicService = Url.Content("~/Api/Mp4");
+    var staticVideoDirectory = Url.Content("~/Content/Video");
+}
+
+<h2>Videos</h2>
+
+<table class="videoTable">
+    <tr>
+        <td>
+            <h4>
+                Static Video ("src=@staticVideoDirectory/Morning.mp4")
+            </h4>
+            <p>
+                <a id="playStaticVideo">Play the Video</a>
+            </p>
+        </td>
+        <td>
+            <h4>
+                Dynamic Video ("src="@dynamicService?FileName=Bunny")
+            </h4>
+            <p>
+                <a id="playDynamicVideo">Play Different Video</a>
+                &nbsp;|&nbsp;
+                <a id="openDynamicVideoStandalone">Open Standalone</a>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <video id="staticVideo" width="400" controls="controls">
+                <source src="@staticVideoDirectory/Morning.mp4" type="video/mp4">
+                @VIDEO_PLACEHOLDER
+            </video>
+        </td>
+        <td>
+            <video id="dynamicVideo" width="400" controls="controls" preload="metadata">
+                <source id="dynamicVideoSrc" src="@dynamicService?FileName=Bunny" type="video/mp4">
+                @VIDEO_PLACEHOLDER
+            </video>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    'use strict';
+
+    const videoNames = ['Bunny', 'Morning'];
+    let currentVideoIndex = 0;
+
+    $(document).ready(() => {
+        $('#playStaticVideo').click(() => {
+            const dynamicVideo = document.getElementById('staticVideo');
+            dynamicVideo.play();
+        });
+
+        $('#playDynamicVideo').click(loadNextVideo);
+        $('#openDynamicVideoStandalone').click(() => {
+            window.open(getVideoUrl(), '_blank');
+        });
+    });
+
+    function loadNextVideo() {
+        currentVideoIndex = currentVideoIndex == 0 ? 1 : 0;
+
+        // INFO: video play, load, pause are part of the DOM, not jQuery!
+        const dynamicVideo = document.getElementById('dynamicVideo');
+        const dynamicVideoSrc = $('#dynamicVideoSrc');
+
+        dynamicVideo.pause();
+        dynamicVideoSrc.attr('src', getVideoUrl());
+        dynamicVideo.load();
+        dynamicVideo.play();
+    }
+
+    function getVideoUrl() {
+        return `@dynamicService?FileName=${videoNames[currentVideoIndex]}`;
+    }
+</script>
