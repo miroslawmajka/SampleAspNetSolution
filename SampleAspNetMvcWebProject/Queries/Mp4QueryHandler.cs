@@ -19,7 +19,7 @@ namespace SampleVideoStreamingSite.Queries
 
         public HttpResponseMessage Handle(Mp4Query query)
         {
-            var fileLocation = fileLocationQueryHandler.Handle(new Queries.Mp4FileLocationQuery(query.FileName));
+            var fileLocation = fileLocationQueryHandler.Handle(new Mp4FileLocationQuery(query.FileName));
 
             return GetResponse(fileLocation, query.Request);
         }

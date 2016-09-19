@@ -8,7 +8,7 @@ namespace SampleVideoStreamingSite.Queries
 {
     public class Mp4FileLocationQueryHandler : IQueryHandler<Mp4FileLocationQuery, string>
     {
-        private const string VIDEO_DIRECTORY = @"~/Content/Video/";
+        private const string VIDEO_DIRECTORY = @"~/Assets/Video/";
         private const string MP4_FILE_EXTENSION = ".mp4";
 
         public string Handle(Mp4FileLocationQuery query)
