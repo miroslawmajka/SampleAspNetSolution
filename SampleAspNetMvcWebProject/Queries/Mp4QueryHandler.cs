@@ -38,8 +38,8 @@ namespace SampleVideoStreamingSite.Queries
             {
                 response = request.CreateResponse(okStatusCode);
                 response.Content = new StringContent(okStatusCode.ToString());
-                response.Content.Headers.ContentType = mediaType;
                 response.Content.Headers.ContentLength = fileStream.Length;
+                response.Content.Headers.ContentType = mediaType;
             }
             else
             {
@@ -53,12 +53,11 @@ namespace SampleVideoStreamingSite.Queries
                 {
                     response = request.CreateResponse(okStatusCode);
                     response.Content = new StreamContent(fileStream);
-                    response.Content.Headers.ContentType = mediaType;
                     response.Content.Headers.ContentLength = fileStream.Length;
+                    response.Content.Headers.ContentType = mediaType;
                 }
 
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline")
-                {
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline") {
                     FileName = Path.GetFileName(fileLocation)
                 };
             }
