@@ -5,6 +5,7 @@ using Moq.Language.Flow;
 using SampleVideoStreamingSite.Abstract;
 using SampleVideoStreamingSite.Queries;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 
 namespace SampleVideoStreamingSiteUnitTests.Queries
@@ -32,7 +33,7 @@ namespace SampleVideoStreamingSiteUnitTests.Queries
                     Request = new HttpRequestMessage(HttpMethod.Get, "http://www.test.com/")
                 });
 
-                // TODO: assert and add more scenarios
+                Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
             }
         }
 
@@ -57,7 +58,7 @@ namespace SampleVideoStreamingSiteUnitTests.Queries
                     Request = new HttpRequestMessage(HttpMethod.Head, "http://www.test.com/")
                 });
 
-                // TODO: assert and add more scenarios
+                Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
             }
         }
 

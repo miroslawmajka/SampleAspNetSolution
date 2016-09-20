@@ -26,7 +26,7 @@ namespace SampleVideoStreamingSite.Queries
 
         private HttpResponseMessage GetResponse(string fileLocation, HttpRequestMessage request)
         {
-            var statusCode = HttpStatusCode.OK;
+            var okStatusCode = HttpStatusCode.OK;
             var mediaType = new MediaTypeHeaderValue(MP4_MEDIA_TYPE);
 
             HttpResponseMessage response;
@@ -36,8 +36,8 @@ namespace SampleVideoStreamingSite.Queries
 
             if (request.Method == HttpMethod.Head)
             {
-                response = request.CreateResponse(statusCode);
-                response.Content = new StringContent(statusCode.ToString());
+                response = request.CreateResponse(okStatusCode);
+                response.Content = new StringContent(okStatusCode.ToString());
                 response.Content.Headers.ContentType = mediaType;
                 response.Content.Headers.ContentLength = fileStream.Length;
             }
@@ -51,7 +51,7 @@ namespace SampleVideoStreamingSite.Queries
                 }
                 else
                 {
-                    response = request.CreateResponse(statusCode);
+                    response = request.CreateResponse(okStatusCode);
                     response.Content = new StreamContent(fileStream);
                     response.Content.Headers.ContentType = mediaType;
                     response.Content.Headers.ContentLength = fileStream.Length;
