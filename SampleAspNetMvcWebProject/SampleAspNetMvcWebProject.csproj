@@ -186,6 +186,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\HttpResponseHandler.cs" />
     <Compile Include="Abstract\IQuery.cs" />
     <Compile Include="Abstract\IQueryHandler.cs" />
     <Compile Include="App_Start\AutofacConfig.cs" />
@@ -203,6 +204,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HttpResponseHandlers\FullHttpResponseHandler.cs" />
+    <Compile Include="Helpers\HttpResponseHandlers\HeadHttpResponseHandler.cs" />
+    <Compile Include="Helpers\HttpResponseHandlers\RangeHttpResponseHandler.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -239,6 +243,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\Localhost.pubxml" />
+    <None Include="readme.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
