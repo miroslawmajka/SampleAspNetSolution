@@ -1,10 +1,10 @@
-﻿using SampleVideoStreamingSite.Helpers.HttpResponseHandlers;
+﻿using SampleAspNetMvcWebProject.Helpers.HttpResponseHandlers;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace SampleVideoStreamingSite.Helpers
+namespace SampleAspNetMvcWebProject.Helpers
 {
     public abstract class HttpResponseHandler
     {

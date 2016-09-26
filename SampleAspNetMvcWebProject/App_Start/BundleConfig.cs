@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace SampleVideoStreamingSite
+namespace SampleAspNetMvcWebProject
 {
     public class BundleConfig
     {

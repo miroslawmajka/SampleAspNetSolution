@@ -9,8 +9,8 @@
     <ProjectGuid>{DCBA1F23-E977-4E0C-8A7D-0F917460B5A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleVideoStreamingSiteUnitTests</RootNamespace>
-    <AssemblyName>SampleVideoStreamingSiteUnitTests</AssemblyName>
+    <RootNamespace>SampleAspNetUnitTests</RootNamespace>
+    <AssemblyName>SampleAspNetUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -156,7 +156,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SampleAspNetMvcWebProject\SampleAspNetMvcWebProject.csproj">
       <Project>{5F5DBBE8-E9E5-41DF-9C27-C93C85C8A99A}</Project>
-      <Name>SampleVideoStreamingSite</Name>
+      <Name>SampleAspNetMvcWebProject</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

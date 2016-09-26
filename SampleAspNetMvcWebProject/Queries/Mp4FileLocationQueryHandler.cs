@@ -1,10 +1,10 @@
-﻿using SampleVideoStreamingSite.Abstract;
+﻿using SampleAspNetMvcWebProject.Abstract;
 using System.IO;
 using System.Net;
 using System.Web;
 using System.Web.Http;
 
-namespace SampleVideoStreamingSite.Queries
+namespace SampleAspNetMvcWebProject.Queries
 {
     public class Mp4FileLocationQueryHandler : IQueryHandler<Mp4FileLocationQuery, string>
     {

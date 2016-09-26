@@ -1,8 +1,8 @@
-﻿using SampleVideoStreamingSite.Abstract;
-using SampleVideoStreamingSite.Helpers;
+﻿using SampleAspNetMvcWebProject.Abstract;
+using SampleAspNetMvcWebProject.Helpers;
 using System.Net.Http;
 
-namespace SampleVideoStreamingSite.Queries
+namespace SampleAspNetMvcWebProject.Queries
 {
     public class Mp4QueryHandler : IQueryHandler<Mp4Query, HttpResponseMessage>
     {

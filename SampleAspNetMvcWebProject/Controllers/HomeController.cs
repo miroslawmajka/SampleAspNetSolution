@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace SampleVideoStreamingSite.Controllers
+namespace SampleAspNetMvcWebProject.Controllers
 {
     public class HomeController : Controller
     {

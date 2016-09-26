@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace SampleVideoStreamingSite.Models
+namespace SampleAspNetMvcWebProject.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

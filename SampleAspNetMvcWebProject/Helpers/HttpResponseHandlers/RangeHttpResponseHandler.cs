@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 
-namespace SampleVideoStreamingSite.Helpers.HttpResponseHandlers
+namespace SampleAspNetMvcWebProject.Helpers.HttpResponseHandlers
 {
     public class RangeHttpResponseHandler : HttpResponseHandler
     {

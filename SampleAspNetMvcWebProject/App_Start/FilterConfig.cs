@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace SampleVideoStreamingSite
+namespace SampleAspNetMvcWebProject
 {
     public class FilterConfig
     {

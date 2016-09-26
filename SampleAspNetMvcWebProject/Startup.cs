@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(SampleVideoStreamingSite.Startup))]
-namespace SampleVideoStreamingSite
+[assembly: OwinStartupAttribute(typeof(SampleAspNetMvcWebProject.Startup))]
+namespace SampleAspNetMvcWebProject
 {
     public partial class Startup
     {

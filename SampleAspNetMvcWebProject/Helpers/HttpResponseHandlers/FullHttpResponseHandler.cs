@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace SampleVideoStreamingSite.Helpers.HttpResponseHandlers
+namespace SampleAspNetMvcWebProject.Helpers.HttpResponseHandlers
 {
     public class FullHttpResponseHandler : HttpResponseHandler
     {

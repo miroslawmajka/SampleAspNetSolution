@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using SampleVideoStreamingSite.Models;
+using SampleAspNetMvcWebProject.Models;
 
-namespace SampleVideoStreamingSite
+namespace SampleAspNetMvcWebProject
 {
     public partial class Startup
     {

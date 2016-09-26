@@ -1,10 +1,10 @@
-﻿using SampleVideoStreamingSite.Abstract;
-using SampleVideoStreamingSite.Queries;
+﻿using SampleAspNetMvcWebProject.Abstract;
+using SampleAspNetMvcWebProject.Queries;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace SampleVideoStreamingSite.Controllers.Api
+namespace SampleAspNetMvcWebProject.Controllers.Api
 {
     public class Mp4Controller : ApiController
     {

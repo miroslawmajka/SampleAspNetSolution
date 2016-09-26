@@ -1,14 +1,14 @@
 ﻿using Autofac.Extras.Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SampleVideoStreamingSite.Abstract;
-using SampleVideoStreamingSite.Queries;
+using SampleAspNetMvcWebProject.Abstract;
+using SampleAspNetMvcWebProject.Queries;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace SampleVideoStreamingSiteUnitTests.Queries
+namespace SampleAspNetUnitTests.Queries
 {
     [TestClass]
     public class Mp4QueryHandlerTests

@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using SampleVideoStreamingSite.Abstract;
+using SampleAspNetMvcWebProject.Abstract;
 using System.Reflection;
 
-namespace SampleVideoStreamingSite
+namespace SampleAspNetMvcWebProject
 {
     public class AutofacConfig
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 
-namespace SampleVideoStreamingSite
+namespace SampleAspNetMvcWebProject
 {
     public static class WebApiConfig
     {

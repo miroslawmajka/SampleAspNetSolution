@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SampleVideoStreamingSite.Models;
+using SampleAspNetMvcWebProject.Models;
 
-namespace SampleVideoStreamingSite.Controllers
+namespace SampleAspNetMvcWebProject.Controllers
 {
     [Authorize]
     public class ManageController : Controller

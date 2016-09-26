@@ -1,4 +1,4 @@
-﻿namespace SampleVideoStreamingSite.Abstract
+﻿namespace SampleAspNetMvcWebProject.Abstract
 {
     public interface IQueryHandler<in TQuery, out TResult> where TQuery : IQuery<TResult>
     {
