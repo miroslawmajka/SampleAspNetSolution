@@ -28,44 +28,51 @@
         $(document).ready(() => {
             PageMethods.set_path(PageMethods.get_path() + '.aspx');
 
+            const SAMPLE_USER_NAME = 'Bob';
             const output = $('tbody#output');
-            let currentClick = 1;
+
+            let seqNumber = 1;
             let currentPromise = Promise.resolve();
 
             $('input#getCurrentTimeAsync').click(() => {
-                getNextServerTime();
+                const cellIds = addNewRow();
+
+                callAsyncMethod(SAMPLE_USER_NAME)
+                    .then(response => parseResponse(cellIds, response.result))
+                    .catch(error => parseResponse(cellIds, error.reason));
             });
 
             $('input#getCurrentTimeSync').click(() => {
+                const cellIds = addNewRow();
+
                 // Best solution for sequencing the promises:
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
-
                 currentPromise = currentPromise
-                    .then(() => getNextServerTime());
+                    .then(() => {
+                        return callAsyncMethod(SAMPLE_USER_NAME)
+                            .then(response => parseResponse(cellIds, response.result))
+                            .catch(error => parseResponse(cellIds, error.reason));
+                    });
             });
 
-            function getNextServerTime() {
-                // TODO: split the adding of a new row and calling the async method so that when we call sequentially all the rows will be visible
-                const resultCellId = `cell-result-${currentClick}`;
-                const responseTimeCellId = `cell-response-time-${currentClick}`;
+            function addNewRow() {
+                const resultCellId = `cell-result-${seqNumber}`;
+                const responseTimeCellId = `cell-response-time-${seqNumber}`;
 
-                const sequence = `<td>${currentClick}</td>`;
+                const sequence = `<td>${seqNumber}</td>`;
                 const callTime = `<td>${getCurrentTime()}</td>`
                 const ajaxLoader = '<img src="Images/ajax-loader.gif" alt="waiting" />';
                 const result = `<td id="${resultCellId}">${ajaxLoader}</td>`;
                 const responseTime = `<td id="${responseTimeCellId}">${ajaxLoader}</td>`;
 
                 output.append(`<tr>${sequence}${callTime}${result}${responseTime}</tr>`);
-                currentClick++;
 
-                return callAsyncMethod('Mirek')
-                    .then(response => parseResponse(response.result))
-                    .catch(error => parseResponse(error.reason));
+                seqNumber++;
 
-                function parseResponse(response) {
-                    $(`td#${resultCellId}`).html(`<strong>${response}</strong>`);
-                    $(`td#${responseTimeCellId}`).html(getCurrentTime());
-                }
+                return {
+                    resultCellId: resultCellId,
+                    responseTimeCellId: responseTimeCellId
+                };
             }
 
             function callAsyncMethod(name) {
@@ -90,12 +97,17 @@
                 });
             }
 
+            function parseResponse(cellIds, response) {
+                $(`td#${cellIds.resultCellId}`).html(`<strong>${response}</strong>`);
+                $(`td#${cellIds.responseTimeCellId}`).html(getCurrentTime());
+            }
+
             function getCurrentTime() {
                 let date = new Date();
 
                 // TODO: add padding for milliseconds
 
-                return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}.`;
+                return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
             }
         });
     </script>

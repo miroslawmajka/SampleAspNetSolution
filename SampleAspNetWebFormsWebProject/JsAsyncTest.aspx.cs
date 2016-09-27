@@ -14,7 +14,7 @@ namespace SampleAspNetWebFormsWebProject
 
             Thread.Sleep(new Random().Next(1000, 5000));
 
-            return $"Hello, {name}. Current server time: {timeString}.";
+            return $"Hello, {name}! Current server time: {timeString}.";
         }
     }
 }
