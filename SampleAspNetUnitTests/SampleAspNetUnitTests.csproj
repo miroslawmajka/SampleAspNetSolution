@@ -142,7 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Mp4QueryHandlerTests.cs" />
+    <Compile Include="SampleAspNetMvcWebProject\Queries\Mp4QueryHandlerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace SampleAspNetUnitTests.Queries
+namespace SampleAspNetUnitTests.SampleAspNetMvcWebProject.Queries
 {
     [TestClass]
     public class Mp4QueryHandlerTests

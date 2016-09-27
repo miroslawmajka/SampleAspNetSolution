@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="JS Async Test" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
     CodeBehind="JsAsyncTest.aspx.cs" Inherits="SampleAspNetWebFormsWebProject.JsAsyncTest" %>
 
+<%-- TODO: add a new page just for old IE11 with the old JS syntax and extract the javascript in separatet module --%>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
 
@@ -38,11 +39,13 @@
             $('input#getCurrentTimeSync').click(() => {
                 // Best solution for sequencing the promises:
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
+
                 currentPromise = currentPromise
                     .then(() => getNextServerTime());
             });
 
             function getNextServerTime() {
+                // TODO: split the adding of a new row and calling the async method so that when we call sequentially all the rows will be visible
                 const resultCellId = `cell-result-${currentClick}`;
                 const responseTimeCellId = `cell-response-time-${currentClick}`;
 
@@ -89,6 +92,8 @@
 
             function getCurrentTime() {
                 let date = new Date();
+
+                // TODO: add padding for milliseconds
 
                 return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}.`;
             }
