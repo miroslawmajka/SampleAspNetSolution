@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution", "Solution", "{45
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetWebFormsWebProject", "AspNetWebFormsWebProject\AspNetWebFormsWebProject.csproj", "{C35FBD0A-FBD8-4B36-91FE-FAF8ADDDB604}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleAspNetWebFormsWebProject", "SampleAspNetWebFormsWebProject\SampleAspNetWebFormsWebProject.csproj", "{C35FBD0A-FBD8-4B36-91FE-FAF8ADDDB604}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
