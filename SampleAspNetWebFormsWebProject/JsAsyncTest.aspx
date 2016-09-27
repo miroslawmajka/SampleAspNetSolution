@@ -1,14 +1,18 @@
-﻿<%@ Page Title="JS Async Test" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
+﻿<%@ Page Title="Java Script Sequence" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" 
     CodeBehind="JsAsyncTest.aspx.cs" Inherits="SampleAspNetWebFormsWebProject.JsAsyncTest" %>
 
 <%-- TODO: add a new page just for old IE11 with the old JS syntax and extract the javascript in separatet module --%>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+<asp:Content ID="ctnMainContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
-
     <p>
-        <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Asynchronous)" />
-        <input type="button" id="getCurrentTimeSeq" value="Get Current Time (Sequential)" />
-        <input type="button" id="clearTable" value="Clear Table" />
+        Sample JavaScript code for calling a current server time webservice. The first button fires away asynchronously 
+        and does not wait for a reply. The second button calls the webservice and chains subsequent calls so that
+        the next call can only start when the previous one got a result.
+    </p>
+    <p>
+        <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Asynchronous)" class="btn btn-default" />
+        <input type="button" id="getCurrentTimeSeq" value="Get Current Time (Sequential)" class="btn btn-default" />
+        <input type="button" id="clearTable" value="Clear Table" class="btn btn-default" />
     </p>
     
     <table class="js-async-test-table">
@@ -34,32 +38,43 @@
 
             let seqNumber = 1;
             let currentPromise = Promise.resolve();
+            let cancelCalls = false;
 
             $('input#getCurrentTimeAsync').click(() => {
+                cancelCalls = false;
+
                 const cellIds = addNewRow();
 
                 callAsyncMethod(SAMPLE_USER_NAME)
-                    .then(response => parseResponse(cellIds, response.result))
-                    .catch(error => parseResponse(cellIds, error.reason));
+                    .then(response => {
+                        if (!cancelCalls) parseResponse(cellIds, response.result);
+                    })
+                    .catch(error => {
+                        if (!cancelCalls) parseResponse(cellIds, error.reason);
+                    });
             });
 
             $('input#getCurrentTimeSeq').click(() => {
+                cancelCalls = false;
+
                 const cellIds = addNewRow();
 
                 // Best solution for sequencing the promises:
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
                 currentPromise = currentPromise
-                    .then(() => {
-                        return callAsyncMethod(SAMPLE_USER_NAME)
-                            .then(response => parseResponse(cellIds, response.result))
-                            .catch(error => parseResponse(cellIds, error.reason));
+                    .then(() => callAsyncMethod(SAMPLE_USER_NAME))
+                    .then(response => {
+                        if (!cancelCalls) parseResponse(cellIds, response.result);
+                    })
+                    .catch(error => {
+                        if (!cancelCalls) parseResponse(cellIds, error.reason);
                     });
             });
 
             $('input#clearTable').click(() => {
-                output.empty();
+                cancelCalls = true;
 
-                // TODO: break the cycle when table cleared (stop existing calls)
+                output.empty();
             });
 
             function addNewRow() {
@@ -84,10 +99,12 @@
 
             function callAsyncMethod(name) {
                 return new Promise((resolve, reject) => {
-                    PageMethods.GetCurrentTime(name, OnSuccess, OnError);
+                    if (cancelCalls) return resolve({});
+
+                    PageMethods._staticInstance.GetCurrentTime(name, OnSuccess, OnError);
 
                     function OnSuccess(result, userContext, methodName) {
-                        return resolve({
+                        resolve({
                             result: result,
                             userContext: userContext,
                             methodName: methodName
@@ -110,11 +127,19 @@
             }
 
             function getCurrentTime() {
-                let date = new Date();
+                const date = new Date();
+                const hours = padNumber(date.getHours(), 2);
+                const minutes = padNumber(date.getMinutes(), 2);
+                const seconds = padNumber(date.getSeconds(), 2);
+                const milliseconds = padNumber(date.getMilliseconds(), 3);
 
-                // TODO: add padding for milliseconds
+                return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+            }
 
-                return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
+            function padNumber(str, max) {
+                str = str.toString();
+
+                return str.length < max ? padNumber(`0${str}`, max) : str;
             }
         });
     </script>
