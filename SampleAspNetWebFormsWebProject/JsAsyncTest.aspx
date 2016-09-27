@@ -21,52 +21,59 @@
         <tbody id="output"></tbody>
     </table>
 
+    <script src="Scripts/es6-promise.auto.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         'use strict';
 
-        $(document).ready(() => {
+        $(document).ready(function()  {
             PageMethods.set_path(PageMethods.get_path() + '.aspx');
 
-            const output = $('tbody#output');
-            let currentClick = 1;
-            let currentPromise = Promise.resolve();
+            var output = $('tbody#output');
+            var currentClick = 1;
+            var currentPromise = Promise.resolve();
 
-            $('input#getCurrentTimeAsync').click(() => {
+            $('input#getCurrentTimeAsync').click(function()  {
                 getNextServerTime();
             });
 
-            $('input#getCurrentTimeSync').click(() => {
+            $('input#getCurrentTimeSync').click(function()  {
                 // Best solution for sequencing the promises:
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
                 currentPromise = currentPromise
-                    .then(() => getNextServerTime());
+                    .then(function () {
+                        return getNextServerTime()
+                    });
             });
 
             function getNextServerTime() {
-                const resultCellId = `cell-result-${currentClick}`;
-                const responseTimeCellId = `cell-response-time-${currentClick}`;
+                var resultCellId = 'cell-result-' + currentClick;
+                var responseTimeCellId = 'cell-response-time-' + currentClick;
 
-                const sequence = `<td>${currentClick}</td>`;
-                const callTime = `<td>${getCurrentTime()}</td>`
-                const ajaxLoader = '<img src="Images/ajax-loader.gif" alt="waiting" />';
-                const result = `<td id="${resultCellId}">${ajaxLoader}</td>`;
-                const responseTime = `<td id="${responseTimeCellId}">${ajaxLoader}</td>`;
+                var sequence = '<td>' + currentClick + '</td>';
+                var callTime = '<td>' + getCurrentTime() + '</td>';
+                var ajaxLoader = '<img src="Images/ajax-loader.gif" alt="waiting" />';
+                var result = '<td id="' + resultCellId +'">' + ajaxLoader + '</td>';
+                var responseTime = '<td id="' + responseTimeCellId + '">' +ajaxLoader +'</td>';
 
-                output.append(`<tr>${sequence}${callTime}${result}${responseTime}</tr>`);
+                output.append('<tr>' + sequence + callTime + result + responseTime +'</tr>');
                 currentClick++;
 
                 return callAsyncMethod('Mirek')
-                    .then(response => parseResponse(response.result))
-                    .catch(error => parseResponse(error.reason));
+                    .then(function(response) {
+                        parseResponse(response.result)
+                    })
+                    .catch(function(error) {
+                        parseResponse(error.reason)
+                    });
 
                 function parseResponse(response) {
-                    $(`td#${resultCellId}`).html(`<strong>${response}</strong>`);
-                    $(`td#${responseTimeCellId}`).html(getCurrentTime());
+                    $('td#' + resultCellId).html('<strong>' + response + '</strong>');
+                    $('td#' + responseTimeCellId).html(getCurrentTime());
                 }
             }
 
             function callAsyncMethod(name) {
-                return new Promise((resolve, reject) => {
+                return new Promise(function(resolve, reject) {
                     PageMethods.GetCurrentTime(name, OnSuccess, OnError);
 
                     function OnSuccess(result, userContext, methodName) {
@@ -88,9 +95,9 @@
             }
 
             function getCurrentTime() {
-                let date = new Date();
+                var date = new Date();
 
-                return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}.`;
+                return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds() + '.';
             }
         });
     </script>
