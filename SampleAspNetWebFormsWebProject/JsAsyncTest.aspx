@@ -6,8 +6,9 @@
     <h2><%: Title %></h2>
 
     <p>
-        <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Async)" />
-        <input type="button" id="getCurrentTimeSync" value="Get Current Time (Sync)" />
+        <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Asynchronous)" />
+        <input type="button" id="getCurrentTimeSeq" value="Get Current Time (Sequential)" />
+        <input type="button" id="clearTable" value="Clear Table" />
     </p>
     
     <table class="js-async-test-table">
@@ -42,7 +43,7 @@
                     .catch(error => parseResponse(cellIds, error.reason));
             });
 
-            $('input#getCurrentTimeSync').click(() => {
+            $('input#getCurrentTimeSeq').click(() => {
                 const cellIds = addNewRow();
 
                 // Best solution for sequencing the promises:
@@ -53,6 +54,12 @@
                             .then(response => parseResponse(cellIds, response.result))
                             .catch(error => parseResponse(cellIds, error.reason));
                     });
+            });
+
+            $('input#clearTable').click(() => {
+                output.empty();
+
+                // TODO: break the cycle when table cleared (stop existing calls)
             });
 
             function addNewRow() {
