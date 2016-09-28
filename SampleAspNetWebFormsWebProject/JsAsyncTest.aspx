@@ -10,16 +10,27 @@
         the next call can only start when the previous one got a result.
     </p>
     <p>
-        <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Asynchronous)" class="btn btn-default" />
-        <input type="button" id="getCurrentTimeSeq" value="Get Current Time (Sequential)" class="btn btn-default" />
-        <input type="button" id="clearTable" value="Clear Table" class="btn btn-default" />
+        <span class="left">
+            <input type="button" id="getCurrentTimeAsync" value="Get Current Time (Asynchronous)" class="btn btn-default" />
+            <input type="button" id="getCurrentTimeSeq" value="Get Current Time (Sequential)" class="btn btn-default" />
+            <input type="button" id="clearTable" value="Clear Table" class="btn btn-default" />
+        </span>
+        <span class="right">
+            Pending Calls:
+            <input type="text" id="txtPendingCalls" class="form-control pending-calls-count" maxlength="5" />
+        </span>
     </p>
+
+    <div class="float-clear"></div>
+
+    <br />
     
-    <table class="js-async-test-table">
+    <table class="js-async-test-table table">
         <thead>
             <tr>
                 <th>Sequence</th>
                 <th>Call Time</th>
+                <th>Sequential</th>
                 <th>Result</th>
                 <th>Response Time</th>
             </tr>
@@ -39,11 +50,15 @@
             let seqNumber = 1;
             let currentPromise = Promise.resolve();
             let callsCancelled = false;
+            let pendingCalls = 0;
+
+            updatePendingCalls();
 
             $('input#getCurrentTimeAsync').click(() => {
                 uncancelCalls();
 
-                const cellIds = addNewRow();
+                const cellIds = addNewRow(false);
+                increasePendingCalls();
 
                 callAsyncMethod(SAMPLE_USER_NAME)
                     .then(response => parseResponse(cellIds, response.result))
@@ -53,7 +68,8 @@
             $('input#getCurrentTimeSeq').click(() => {
                 uncancelCalls();
 
-                const cellIds = addNewRow();
+                const cellIds = addNewRow(true);
+                increasePendingCalls();
 
                 // Best solution for sequencing the promises:
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
@@ -68,17 +84,18 @@
                 output.empty();
             });
 
-            function addNewRow() {
+            function addNewRow(isSequential) {
                 const resultCellId = `cell-result-${seqNumber}`;
                 const responseTimeCellId = `cell-response-time-${seqNumber}`;
 
                 const sequence = `<td>${seqNumber}</td>`;
                 const callTime = `<td>${getCurrentTime()}</td>`
+                const sequential = `<td>${isSequential.toString()}</td>`;
                 const ajaxLoader = '<img src="Images/ajax-loader.gif" alt="waiting" />';
                 const result = `<td id="${resultCellId}">${ajaxLoader}</td>`;
                 const responseTime = `<td id="${responseTimeCellId}">${ajaxLoader}</td>`;
 
-                output.append(`<tr>${sequence}${callTime}${result}${responseTime}</tr>`);
+                output.append(`<tr>${sequence}${callTime}${sequential}${result}${responseTime}</tr>`);
 
                 seqNumber++;
 
@@ -90,11 +107,16 @@
 
             function callAsyncMethod(name) {
                 return new Promise((resolve, reject) => {
-                    if (callsAreCancelled()) return resolve({});
+                    if (callsAreCancelled()) {
+                        decreasePendingCalls();
+
+                        return resolve({});
+                    }
 
                     PageMethods._staticInstance.GetCurrentTime(name, OnSuccess, OnError);
 
                     function OnSuccess(result, userContext, methodName) {
+                        decreasePendingCalls();
                         resolve({
                             result: result,
                             userContext: userContext,
@@ -103,6 +125,7 @@
                     }
 
                     function OnError(error, userContext, methodName) {
+                        decreasePendingCalls();
                         reject({
                             reason: error._message,
                             userContext: userContext,
@@ -143,6 +166,20 @@
 
             function callsAreCancelled() {
                 return callsCancelled;
+            }
+
+            function increasePendingCalls() {
+                pendingCalls++;
+                updatePendingCalls();
+            }
+
+            function decreasePendingCalls() {
+                pendingCalls--;
+                updatePendingCalls();
+            }
+
+            function updatePendingCalls() {
+                $('input#txtPendingCalls').val(pendingCalls.toString());
             }
         });
     </script>

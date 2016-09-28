@@ -42,10 +42,28 @@ a:hover {
 }
 
 .js-async-test-table {
-    border: 1px solid black;
-    border-collapse: collapse;
+    width: 100%;
 }
 
 .js-async-test-table td, th {
     padding: 10px;
+}
+
+.pending-calls-count {
+    display: inline;
+    width: 50px;
+}
+
+.left {
+    float: left;
+    display: inline-block;
+}
+
+.right {
+    float: right;
+    display: inline-block;
+}
+
+.float-clear {
+    clear: both;
 }
