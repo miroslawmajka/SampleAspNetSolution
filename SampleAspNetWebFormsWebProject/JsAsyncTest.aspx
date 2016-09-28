@@ -38,24 +38,20 @@
 
             let seqNumber = 1;
             let currentPromise = Promise.resolve();
-            let cancelCalls = false;
+            let callsCancelled = false;
 
             $('input#getCurrentTimeAsync').click(() => {
-                cancelCalls = false;
+                uncancelCalls();
 
                 const cellIds = addNewRow();
 
                 callAsyncMethod(SAMPLE_USER_NAME)
-                    .then(response => {
-                        if (!cancelCalls) parseResponse(cellIds, response.result);
-                    })
-                    .catch(error => {
-                        if (!cancelCalls) parseResponse(cellIds, error.reason);
-                    });
+                    .then(response => parseResponse(cellIds, response.result))
+                    .catch(error => parseResponse(cellIds, error.reason));
             });
 
             $('input#getCurrentTimeSeq').click(() => {
-                cancelCalls = false;
+                uncancelCalls();
 
                 const cellIds = addNewRow();
 
@@ -63,17 +59,12 @@
                 // https://stackoverflow.com/questions/24586110/resolve-promises-one-after-another-i-e-in-sequence/36672042#36672042
                 currentPromise = currentPromise
                     .then(() => callAsyncMethod(SAMPLE_USER_NAME))
-                    .then(response => {
-                        if (!cancelCalls) parseResponse(cellIds, response.result);
-                    })
-                    .catch(error => {
-                        if (!cancelCalls) parseResponse(cellIds, error.reason);
-                    });
+                    .then(response => parseResponse(cellIds, response.result))
+                    .catch(error => parseResponse(cellIds, error.reason));
             });
 
             $('input#clearTable').click(() => {
-                cancelCalls = true;
-
+                cancelCalls();
                 output.empty();
             });
 
@@ -99,7 +90,7 @@
 
             function callAsyncMethod(name) {
                 return new Promise((resolve, reject) => {
-                    if (cancelCalls) return resolve({});
+                    if (callsAreCancelled()) return resolve({});
 
                     PageMethods._staticInstance.GetCurrentTime(name, OnSuccess, OnError);
 
@@ -140,6 +131,18 @@
                 str = str.toString();
 
                 return str.length < max ? padNumber(`0${str}`, max) : str;
+            }
+
+            function cancelCalls() {
+                callsCancelled = true;
+            }
+
+            function uncancelCalls() {
+                callsCancelled = false;
+            }
+
+            function callsAreCancelled() {
+                return callsCancelled;
             }
         });
     </script>
