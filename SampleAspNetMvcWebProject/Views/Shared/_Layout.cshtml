@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
 
 </head>
@@ -26,6 +27,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Videos", "Index", "Video")</li>
+                    <li>@Html.ActionLink("jQuery", "Index", "jQuery")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
